@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tests.BaseTest;
-import pages.cadastro.CadastroPage;
 import config.Config;
 import utils.DataFactory;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package pages.cadastro;
+package tests.cadastro;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

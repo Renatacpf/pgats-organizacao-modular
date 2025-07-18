@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import tests.BaseTest;
-import pages.login.LoginPage;
 import config.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;

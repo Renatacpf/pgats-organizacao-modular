@@ -16,26 +16,48 @@ O projeto atualmente abrange a automação das seguintes funcionalidades em uma 
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
-O projeto foi cuidadosamente estruturado para promover a modularidade, reusabilidade e fácil manutenção, seguindo os princípios de um framework de automação robusto:
+O projeto foi cuidadosamente estruturado para promover a modularidade, reusabilidade e fácil manutenção, seguindo os princípios de um framework de automação robusto e a estrutura sugerida em sala de aula:
 
-* **Separação por Camadas:**
-    * `pages/`: Contém as classes Page Objects (`LoginPage`, `CadastroPage`), que representam cada tela da aplicação e encapsulam seus elementos e as ações que podem ser realizadas nelas.
-    * `tests/`: Contém as classes de teste (`LoginTest`, `CadastroTest`), que definem os cenários de teste e utilizam as Page Objects para interagir com a aplicação.
-    * `utils/`: Contém funções auxiliares e utilitários, como `DataFactory` para geração de dados de teste e `DriverManager` para o gerenciamento do WebDriver.
-    * `config/`: Contém a classe `Config` para armazenar parâmetros de configuração global, como a URL base da aplicação e o tipo de navegador.
-    * `base/`: Contém a classe `BaseTest`, que serve como uma classe base para todos os testes, inicializando e finalizando o WebDriver (usando `DriverManager`) para cada cenário.
+* **Estrutura de Pastas Principal:**
+    ```
+    .
+    ├── src/
+    │   ├── main/
+    │   │   └── java/
+    │   │       ├── config/         # Configurações gerais e gerenciamento do WebDriver
+    │   │       │   ├── Config.java
+    │   │       │   └── DriverManager.java
+    │   │       └── utils/          # Utilitários diversos
+    │   │           └── DataFactory.java
+    │   └── test/
+    │       └── java/
+    │           ├── base/           # Classes base para os testes
+    │           │   └── BaseTest.java
+    │           └── tests/          # Testes e Page Objects agrupados por funcionalidade
+    │               ├── cadastro/
+    │               │   ├── CadastroPage.java
+    │               │   └── CadastroTest.java
+    │               └── login/
+    │                   ├── LoginPage.java
+    │                   └── LoginTest.java
+    ├── pom.xml
+    └── README.md
+    ```
+
+* **Separação por Camadas (Refletindo a Estrutura):**
+    * `tests/cadastro/` e `tests/login/`: Contêm tanto as classes de teste (`CadastroTest`, `LoginTest`) quanto as suas respectivas Page Objects (`CadastroPage`, `LoginPage`). Esta organização agrupa tudo que é específico de uma funcionalidade em um único local, facilitando a navegação e manutenção.
+    * `config/`: Armazena configurações globais (`Config.java`) e o gerenciador do WebDriver (`DriverManager.java`).
+    * `utils/`: Inclui utilitários como `DataFactory` para geração de dados de teste.
+    * `base/`: Contém a classe `BaseTest`, que é a base para todos os testes, cuidando da inicialização e finalização do WebDriver.
 
 * **Design Patterns Aplicados:**
     * **Page Object Model (POM):** Implementado nas classes `LoginPage` e `CadastroPage`, garantindo que a lógica de interação com a UI esteja separada da lógica de teste.
-    * **Singleton (implícito no DriverManager):** O `DriverManager` gerencia a instância do WebDriver, garantindo que haja uma única instância do driver por thread de execução, promovendo reuso e evitando problemas de concorrência.
-    * **Factory (em DataFactory):** A classe `DataFactory` atua como uma fábrica para gerar dados de teste dinamicamente, tornando os testes mais flexíveis e reusáveis.
-
-* **Separação por Domínio/Funcionalidade:**
-    * As pastas e pacotes são organizados por funcionalidade (e.g., `login`, `cadastro`), agrupando Page Objects e Testes relacionados, o que melhora a clareza e a navegação no projeto.
+    * **Singleton (implícito no DriverManager):** O `DriverManager` gerencia a instância do WebDriver, garantindo uma única instância do driver por thread de execução, promovendo reuso.
+    * **Factory (em DataFactory):** A classe `DataFactory` atua como uma fábrica para gerar dados de teste dinamicamente.
 
 * **Convenções e Padronizações:**
-    * Nomes de arquivos e métodos são claros e descritivos, seguindo convenções de nomenclatura padrão em Java e para frameworks de automação (e.g., `preencherUsuario()`, `clicarNoBotaoLogin()`).
-    * A estrutura de pastas segue uma hierarquia lógica e amplamente aceita na comunidade de automação.
+    * Nomes de arquivos e métodos são claros e descritivos.
+    * A estrutura de pastas segue a hierarquia lógica e padronizada conforme as diretrizes do curso.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -89,5 +111,3 @@ Antes de executar os testes, certifique-se de ter o seguinte instalado:
 ## 🤝 Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
-
----
