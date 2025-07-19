@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.register.HomePage;
 import tests.register.AccountCreatedPage;
+import utils.TestDataLoader;
 
 public class LoginTest extends BaseTest {
 
@@ -22,11 +23,15 @@ public class LoginTest extends BaseTest {
         homePage.clickSignupLogin();
         Assertions.assertTrue(loginPage.isLoginPageVisible(), "Login page should be visible.");
 
-        loginPage.enterLoginDetails("usuario.naoexiste@invalido.com", "senhaerrada123");
+        String invalidEmail = TestDataLoader.getLoginData("invalid", "email");
+        String invalidPassword = TestDataLoader.getLoginData("invalid", "password");
+        String expectedErrorMessage = TestDataLoader.getLoginData("invalid", "errorMessage");
+
+        loginPage.enterLoginDetails(invalidEmail, invalidPassword);
         loginPage.clickLoginButton();
 
         Assertions.assertTrue(loginPage.isInvalidLoginMessageVisible(), "Mensagem de erro de login inválido deve estar visível.");
-        Assertions.assertEquals("Your email or password is incorrect!", loginPage.getInvalidLoginMessageText(), "Texto da mensagem de erro está incorreto.");
+        Assertions.assertEquals(expectedErrorMessage, loginPage.getInvalidLoginMessageText(), "Texto da mensagem de erro está incorreto.");
 
         Assertions.assertTrue(loginPage.isLoginPageVisible(), "Deve permanecer na página de Login após login inválido.");
     }
@@ -34,9 +39,10 @@ public class LoginTest extends BaseTest {
     @Test
     @DisplayName("Deve realizar login com sucesso de um usuário existente")
     public void deveRealizarLoginComSucesso() {
-        String existingUserEmail = "test_4d00b840@example.com";
-        String existingUserPassword = "Password5877";
-        String expectedLoggedInUserName = "User_8f2896ca";
+        // Dados lidos do YAML
+        String existingUserEmail = TestDataLoader.getLoginData("valid", "email");
+        String existingUserPassword = TestDataLoader.getLoginData("valid", "password");
+        String expectedLoggedInUserName = TestDataLoader.getLoginData("valid", "expectedUsername");
 
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = new LoginPage(driver);

@@ -9,10 +9,11 @@ O projeto atualmente abrange a automação das seguintes funcionalidades na apli
 1.  **Registro de Usuário (Test Case 1: Register User):**
     * Navegação e verificação da visibilidade da Home Page.
     * Clique no botão 'Signup / Login' e verificação da visibilidade de 'New User Signup!'.
+    * **Geração dinâmica de nome, e-mail e senha de usuário.**
     * Preenchimento de nome e e-mail para registro inicial e clique no botão 'Signup'.
-    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION' e preenchimento de detalhes da conta (Título, Senha, Data de Nascimento).
+    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION' e preenchimento de detalhes da conta (Título, Data de Nascimento **obtidos de arquivo YAML**).
     * Seleção de checkboxes de newsletter e ofertas.
-    * Preenchimento de detalhes de endereço (Nome, Sobrenome, Empresa, Endereços, País, Estado, Cidade, CEP, Número de Celular).
+    * Preenchimento de detalhes de endereço (Nome, Sobrenome, Empresa, Endereços, País, Estado, Cidade, CEP, Número de Celular **obtidos de arquivo YAML**).
     * Clique no botão 'Create Account' e verificação da visibilidade de 'ACCOUNT CREATED!'.
     * Clique no botão 'Continue' e verificação de que 'Logged in as username' está visível.
     * Clique no botão 'Delete Account', verificação da visibilidade de 'ACCOUNT DELETED!', e clique em 'Continue'.
@@ -20,9 +21,12 @@ O projeto atualmente abrange a automação das seguintes funcionalidades na apli
 2.  **Login de Usuário:**
     * Navegação e verificação da visibilidade da Home Page.
     * Clique no botão 'Signup / Login'.
-    * Preenchimento de credenciais (e-mail e senha) na seção de login e realização do login.
+    * Preenchimento de credenciais (e-mail e senha) na seção de login.
+        * **Teste de Sucesso:** Credenciais válidas **obtidas de arquivo YAML**.
+        * **Teste de Falha:** Credenciais inválidas **obtidas de arquivo YAML**.
+    * Realização do login.
     * Verificação do login bem-sucedido ('Logged in as username' visível).
-    * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro.
+    * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro **(obtida de arquivo YAML)**.
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
@@ -31,20 +35,22 @@ O projeto foi cuidadosamente estruturado para promover a modularidade, reusabili
 ### Estrutura de Pastas Principal:
 
 Abaixo está a estrutura de pastas do projeto, que reflete a organização modular e a separação por camadas:
+![img_1.png](img_1.png)
 
-![img.png](img.png)
 ### Detalhes da Organização:
 
 * **Separação por Camadas:**
     * `tests/register/` e `tests/login/`: Contêm tanto as classes de teste (`RegisterUserTest`, `LoginTest`) quanto as suas respectivas Page Objects (`HomePage`, `SignupLoginPage`, `AccountInformationPage`, `AccountDetailsPage`, `AccountCreatedPage`, `LoginPage`). Esta organização agrupa tudo que é específico de uma funcionalidade em um único local, facilitando a navegação e manutenção.
     * `config/`: Armazena configurações globais (`Config.java`) e o gerenciador do WebDriver (`DriverManager.java`).
-    * `utils/`: Inclui utilitários como `DataFactory` para geração de dados de teste.
+    * `utils/`: Inclui utilitários como `DataFactory` para geração de dados de teste e `TestDataLoader` para carregar dados de arquivos externos.
     * `base/`: Contém a classe `BaseTest`, que é a base para todos os testes, cuidando da inicialização e finalização do WebDriver.
+    * `resources/`: Novo diretório para armazenar arquivos de dados de teste externos, como `testdata.yaml`.
 
 * **Design Patterns Aplicados:**
     * **Page Object Model (POM):** Implementado nas diversas Page Objects, garantindo que a lógica de interação com a UI esteja separada da lógica de teste.
     * **Singleton (implícito no DriverManager):** O `DriverManager` gerencia a instância do WebDriver.
     * **Factory (em DataFactory):** A classe `DataFactory` atua como uma fábrica para gerar dados de teste dinamicamente.
+    * **Data Driven (com YAML):** Os dados de teste fixos agora são lidos de arquivos YAML, tornando os testes mais flexíveis e fáceis de manter.
 
 * **Convenções e Padronizações:**
     * Nomes de arquivos e métodos são claros e descritivos.
@@ -57,6 +63,7 @@ Abaixo está a estrutura de pastas do projeto, que reflete a organização modul
 * **Gerenciador de Dependências:** Apache Maven
 * **Framework de Testes:** JUnit 5 (Jupiter)
 * **Gerenciamento de Drivers:** WebDriverManager
+* **Processamento YAML:** SnakeYAML (adicionado ao `pom.xml`)
 * **IDE:** IntelliJ IDEA (recomendado)
 
 ## 🌐 Aplicação de Teste

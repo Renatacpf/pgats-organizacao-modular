@@ -1,0 +1,28 @@
+# Dados para testes de Login
+login:
+  invalid:
+    email: "usuario.naoexiste@invalido.com"
+    password: "senhaerrada123"
+    errorMessage: "Your email or password is incorrect!"
+  valid:
+    email: "test_4d00b840@example.com"
+    password: "Password5877"
+    expectedUsername: "User_8f2896ca"
+
+# Dados para testes de Registro
+register:
+  accountInformation:
+    title: "Mr."
+    day: "15"
+    month: "May"
+    year: "1990"
+  addressDetails:
+    lastName: "SobrenomeTeste"
+    company: "MinhaEmpresa"
+    address1: "123 Rua Principal"
+    address2: "Apto 101"
+    country: "Canada"
+    state: "Ontario"
+    city: "Toronto"
+    zipCode: "A1A1A1"
+    mobileNumber: "9876543210"

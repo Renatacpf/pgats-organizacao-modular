@@ -12,6 +12,7 @@ import tests.register.AccountDetailsPage;
 import tests.register.AccountCreatedPage;
 
 import utils.DataFactory;
+import utils.TestDataLoader; // Importe a nova classe utilitária
 
 import static java.sql.DriverManager.println;
 
@@ -50,25 +51,25 @@ public class RegisterUserTest extends BaseTest {
 
         Assertions.assertTrue(accountInformationPage.isEnterAccountInformationVisible(), "ENTER ACCOUNT INFORMATION should be visible.");
         accountInformationPage.fillAccountInformation(
-                "Mr.",
+                TestDataLoader.getRegisterData("accountInformation", "title"),
                 generatedUserPassword,
-                "15",
-                "May",
-                "1990"
+                TestDataLoader.getRegisterData("accountInformation", "day"),
+                TestDataLoader.getRegisterData("accountInformation", "month"),
+                TestDataLoader.getRegisterData("accountInformation", "year")
         );
 
         Assertions.assertTrue(accountDetailsPage.isAddressDetailsVisible(), "Address Details should be visible.");
         accountDetailsPage.fillAddressDetails(
-                generatedUserName.split("_")[0],
-                "SobrenomeTeste",
-                "MinhaEmpresa",
-                "123 Rua Principal",
-                "Apto 101",
-                "Canada",
-                "Ontario",
-                "Toronto",
-                "A1A1A1",
-                "9876543210"
+                generatedUserName.split("_")[0], // Parte do nome gerado
+                TestDataLoader.getRegisterData("addressDetails", "lastName"),
+                TestDataLoader.getRegisterData("addressDetails", "company"),
+                TestDataLoader.getRegisterData("addressDetails", "address1"),
+                TestDataLoader.getRegisterData("addressDetails", "address2"),
+                TestDataLoader.getRegisterData("addressDetails", "country"),
+                TestDataLoader.getRegisterData("addressDetails", "state"),
+                TestDataLoader.getRegisterData("addressDetails", "city"),
+                TestDataLoader.getRegisterData("addressDetails", "zipCode"),
+                TestDataLoader.getRegisterData("addressDetails", "mobileNumber")
         );
 
         accountDetailsPage.clickCreateAccount();
