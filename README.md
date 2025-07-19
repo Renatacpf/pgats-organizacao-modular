@@ -7,65 +7,35 @@ Este projeto tem como objetivo demonstrar a automação de testes de interfaces 
 O projeto atualmente abrange a automação das seguintes funcionalidades na aplicação web de demonstração [Automation Exercise](https://www.automationexercise.com/):
 
 1.  **Registro de Usuário (Test Case 1: Register User):**
-    * Navegação para a Home Page.
-    * Verificação da visibilidade da Home Page.
-    * Clique no botão 'Signup / Login'.
-    * Verificação da visibilidade de 'New User Signup!'.
-    * Preenchimento de nome e e-mail para registro inicial.
-    * Clique no botão 'Signup'.
-    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION'.
-    * Preenchimento de detalhes da conta (Título, Senha, Data de Nascimento).
+    * Navegação e verificação da visibilidade da Home Page.
+    * Clique no botão 'Signup / Login' e verificação da visibilidade de 'New User Signup!'.
+    * Preenchimento de nome e e-mail para registro inicial e clique no botão 'Signup'.
+    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION' e preenchimento de detalhes da conta (Título, Senha, Data de Nascimento).
     * Seleção de checkboxes de newsletter e ofertas.
     * Preenchimento de detalhes de endereço (Nome, Sobrenome, Empresa, Endereços, País, Estado, Cidade, CEP, Número de Celular).
-    * Clique no botão 'Create Account'.
-    * Verificação da visibilidade de 'ACCOUNT CREATED!'.
-    * Clique no botão 'Continue'.
-    * Verificação de que 'Logged in as username' está visível.
-    * Clique no botão 'Delete Account'.
-    * Verificação da visibilidade de 'ACCOUNT DELETED!' e clique em 'Continue'.
+    * Clique no botão 'Create Account' e verificação da visibilidade de 'ACCOUNT CREATED!'.
+    * Clique no botão 'Continue' e verificação de que 'Logged in as username' está visível.
+    * Clique no botão 'Delete Account', verificação da visibilidade de 'ACCOUNT DELETED!', e clique em 'Continue'.
+
 2.  **Login de Usuário:**
-    * Navegação para a Home Page.
-    * Verificação da visibilidade da Home Page.
+    * Navegação e verificação da visibilidade da Home Page.
     * Clique no botão 'Signup / Login'.
-    * Preenchimento de credenciais (e-mail e senha) na seção de login.
-    * Realização do login.
+    * Preenchimento de credenciais (e-mail e senha) na seção de login e realização do login.
     * Verificação do login bem-sucedido ('Logged in as username' visível).
+    * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro.
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
-O projeto foi cuidadosamente estruturado para promover a modularidade, reusabilidade e fácil manutenção, seguindo os princípios de um framework de automação robusto e a estrutura sugerida em sala de aula:
+O projeto foi cuidadosamente estruturado para promover a modularidade, reusabilidade e fácil manutenção, seguindo os princípios de um framework de automação robusto e a estrutura sugerida em sala de aula.
 
-* **Estrutura de Pastas Principal:**
-    ```
-    .
-    ├── src/
-    │   ├── main/
-    │   │   └── java/
-    │   │       ├── config/         # Configurações gerais e gerenciamento do WebDriver
-    │   │       │   ├── Config.java
-    │   │       │   └── DriverManager.java
-    │   │       └── utils/          # Utilitários diversos
-    │   │           └── DataFactory.java
-    │   └── test/
-    │       └── java/
-    │           ├── base/           # Classes base para os testes
-    │           │   └── BaseTest.java
-    │           └── tests/          # Testes e Page Objects agrupados por funcionalidade
-    │               ├── register/   # Funcionalidade de Registro de Usuário
-    │               │   ├── HomePage.java
-    │               │   ├── SignupLoginPage.java
-    │               │   ├── AccountInformationPage.java
-    │               │   ├── AccountDetailsPage.java
-    │               │   ├── AccountCreatedPage.java
-    │               │   └── RegisterUserTest.java
-    │               └── login/      # Funcionalidade de Login de Usuário
-    │                   ├── LoginPage.java
-    │                   └── LoginTest.java
-    ├── pom.xml
-    └── README.md
-    ```
+### Estrutura de Pastas Principal:
 
-* **Separação por Camadas (Refletindo a Estrutura):**
+Abaixo está a estrutura de pastas do projeto, que reflete a organização modular e a separação por camadas:
+
+![img.png](img.png)
+### Detalhes da Organização:
+
+* **Separação por Camadas:**
     * `tests/register/` e `tests/login/`: Contêm tanto as classes de teste (`RegisterUserTest`, `LoginTest`) quanto as suas respectivas Page Objects (`HomePage`, `SignupLoginPage`, `AccountInformationPage`, `AccountDetailsPage`, `AccountCreatedPage`, `LoginPage`). Esta organização agrupa tudo que é específico de uma funcionalidade em um único local, facilitando a navegação e manutenção.
     * `config/`: Armazena configurações globais (`Config.java`) e o gerenciador do WebDriver (`DriverManager.java`).
     * `utils/`: Inclui utilitários como `DataFactory` para geração de dados de teste.
