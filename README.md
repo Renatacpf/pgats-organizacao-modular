@@ -78,7 +78,6 @@ O projeto atualmente abrange a automação das seguintes funcionalidades na apli
     * Realização do login.
     * Verificação do login bem-sucedido ('Logged in as username' visível).
     * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro **(obtida de arquivo YAML)**.
-    * **Observação:** O teste de login bem-sucedido inclui a exclusão da conta para garantir a limpeza do ambiente após a execução.
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
