@@ -12,7 +12,6 @@ public class TestDataLoader {
         Yaml yaml = new Yaml();
         try (InputStream inputStream = TestDataLoader.class.getClassLoader().getResourceAsStream("testdata.yaml")) {
             if (inputStream == null) {
-                // Melhorar a mensagem de erro para o caminho de recurso esperado
                 throw new RuntimeException("Arquivo testdata.yaml não encontrado em src/test/resources/ ou no classpath.");
             }
             testData = yaml.load(inputStream);

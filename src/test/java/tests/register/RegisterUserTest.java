@@ -12,7 +12,7 @@ import tests.register.AccountDetailsPage;
 import tests.register.AccountCreatedPage;
 
 import utils.DataFactory;
-import utils.TestDataLoader; // Importe a nova classe utilitária
+import utils.TestDataLoader;
 
 import static java.sql.DriverManager.println;
 
@@ -40,11 +40,8 @@ public class RegisterUserTest extends BaseTest {
         Assertions.assertTrue(signupLoginPage.isSignupLoginPageVisible(), "Signup / Login page should be visible.");
 
         generatedUserName = DataFactory.generateRandomName();
-        println("Generated User Name: " + generatedUserName);
         generatedUserEmail = DataFactory.generateRandomEmail();
-        println("Generated User Email: " + generatedUserEmail);
         generatedUserPassword = DataFactory.generateRandomPassword();
-        println("Generated User Password: " + generatedUserPassword);
 
         signupLoginPage.enterNameAndEmailForSignup(generatedUserName, generatedUserEmail);
         signupLoginPage.clickSignupButton();

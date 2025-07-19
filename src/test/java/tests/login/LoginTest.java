@@ -39,7 +39,6 @@ public class LoginTest extends BaseTest {
     @Test
     @DisplayName("Deve realizar login com sucesso de um usuário existente")
     public void deveRealizarLoginComSucesso() {
-        // Dados lidos do YAML
         String existingUserEmail = TestDataLoader.getLoginData("valid", "email");
         String existingUserPassword = TestDataLoader.getLoginData("valid", "password");
         String expectedLoggedInUserName = TestDataLoader.getLoginData("valid", "expectedUsername");

@@ -42,7 +42,7 @@ Abaixo está a estrutura de pastas do projeto, que reflete a organização modul
 │   │   └── java/
 │   │       ├── config/         # Configurações gerais e gerenciamento do WebDriver
 │   │       │   ├── Config.java
-│   │       │   └── DriverManager.java # Se o DriverManager.java foi mantido e usado
+│   │       │   └── DriverManager.java
 │   │       └── utils/          # Utilitários diversos
 │   │           ├── DataFactory.java  # Para geração de dados dinâmicos
 │   │           └── TestDataLoader.java # Para carregamento de dados de teste de arquivos YAML
