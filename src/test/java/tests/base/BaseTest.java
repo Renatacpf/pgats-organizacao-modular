@@ -21,9 +21,14 @@ public class BaseTest {
     public void setUp() {
         if (Config.BROWSER.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
+
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--start-maximized");
-            options.addArguments("--disable-notifications");
+            options.addArguments("--headless");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+
             driver = new ChromeDriver(options);
         } else {
             throw new IllegalArgumentException("Browser " + Config.BROWSER + " not supported.");
@@ -31,6 +36,7 @@ public class BaseTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
     }
 
     @AfterEach
