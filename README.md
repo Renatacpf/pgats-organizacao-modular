@@ -27,6 +27,7 @@ O projeto atualmente abrange a automação das seguintes funcionalidades na apli
     * Realização do login.
     * Verificação do login bem-sucedido ('Logged in as username' visível).
     * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro **(obtida de arquivo YAML)**.
+    * **Observação:** O teste de login bem-sucedido inclui a exclusão da conta para garantir a limpeza do ambiente após a execução.
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
@@ -35,8 +36,88 @@ O projeto foi cuidadosamente estruturado para promover a modularidade, reusabili
 ### Estrutura de Pastas Principal:
 
 Abaixo está a estrutura de pastas do projeto, que reflete a organização modular e a separação por camadas:
-![img_1.png](img_1.png)
 
+Com certeza! O README.md que você me forneceu já é muito bom e detalhado. Para atualizá-lo para a nova estrutura, vou fazer o seguinte:
+
+Refletir a adição de TestDataLoader.java e testdata.yaml: Mencionarei essas novas adições na seção de estrutura do projeto.
+
+Ajustar a descrição das funcionalidades de registro e login: Adicionarei que os dados fixos agora vêm de arquivos YAML.
+
+Remover a imagem da estrutura de pastas e confiar apenas na representação de texto para evitar problemas com links de imagem embutidos em arquivos locais, como discutimos anteriormente.
+
+Aqui está o README.md atualizado para você copiar e colar:
+
+Markdown
+
+# Projeto de Automação de Testes - Organização Modular (`pgats-organizacao-modular`)
+
+Este projeto tem como objetivo demonstrar a automação de testes de interfaces web (UI) utilizando Selenium WebDriver com Java e Maven, com foco em uma estrutura de código organizada e modular, seguindo boas práticas de desenvolvimento e aplicando design patterns como Page Objects.
+
+## 🚀 Funcionalidades Automatizadas
+
+O projeto atualmente abrange a automação das seguintes funcionalidades na aplicação web de demonstração [Automation Exercise](https://www.automationexercise.com/):
+
+1.  **Registro de Usuário (Test Case 1: Register User):**
+    * Navegação e verificação da visibilidade da Home Page.
+    * Clique no botão 'Signup / Login' e verificação da visibilidade de 'New User Signup!'.
+    * **Geração dinâmica de nome, e-mail e senha de usuário.**
+    * Preenchimento de nome e e-mail para registro inicial e clique no botão 'Signup'.
+    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION' e preenchimento de detalhes da conta (Título, Data de Nascimento **obtidos de arquivo YAML**).
+    * Seleção de checkboxes de newsletter e ofertas.
+    * Preenchimento de detalhes de endereço (Nome, Sobrenome, Empresa, Endereços, País, Estado, Cidade, CEP, Número de Celular **obtidos de arquivo YAML**).
+    * Clique no botão 'Create Account' e verificação da visibilidade de 'ACCOUNT CREATED!'.
+    * Clique no botão 'Continue' e verificação de que 'Logged in as username' está visível.
+    * Clique no botão 'Delete Account', verificação da visibilidade de 'ACCOUNT DELETED!', e clique em 'Continue'.
+
+2.  **Login de Usuário:**
+    * Navegação e verificação da visibilidade da Home Page.
+    * Clique no botão 'Signup / Login'.
+    * Preenchimento de credenciais (e-mail e senha) na seção de login.
+        * **Teste de Sucesso:** Credenciais válidas **obtidas de arquivo YAML**.
+        * **Teste de Falha:** Credenciais inválidas **obtidas de arquivo YAML**.
+    * Realização do login.
+    * Verificação do login bem-sucedido ('Logged in as username' visível).
+    * Teste de falha de login com credenciais inválidas e verificação da mensagem de erro **(obtida de arquivo YAML)**.
+    * **Observação:** O teste de login bem-sucedido inclui a exclusão da conta para garantir a limpeza do ambiente após a execução.
+
+## 💡 Estrutura do Projeto e Boas Práticas
+
+O projeto foi cuidadosamente estruturado para promover a modularidade, reusabilidade e fácil manutenção, seguindo os princípios de um framework de automação robusto e a estrutura sugerida em sala de aula.
+
+### Estrutura de Pastas Principal:
+
+Abaixo está a estrutura de pastas do projeto, que reflete a organização modular e a separação por camadas:
+```
+.
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       ├── config/         # Configurações gerais e gerenciamento do WebDriver
+│   │       │   ├── Config.java
+│   │       │   └── DriverManager.java # Se o DriverManager.java foi mantido e usado
+│   │       └── utils/          # Utilitários diversos
+│   │           ├── DataFactory.java  # Para geração de dados dinâmicos
+│   │           └── TestDataLoader.java # Para carregamento de dados de teste de arquivos YAML
+│   └── test/
+│       └── java/
+│           ├── base/           # Classes base para os testes
+│           │   └── BaseTest.java
+│           ├── resources/      # Arquivos de recursos, como dados de teste YAML
+│           │   └── testdata.yaml
+│           └── tests/          # Testes e Page Objects agrupados por funcionalidade
+│               ├── register/   # Funcionalidade de Registro de Usuário
+│               │   ├── HomePage.java
+│               │   ├── SignupLoginPage.java
+│               │   ├── AccountInformationPage.java
+│               │   ├── AccountDetailsPage.java
+│               │   ├── AccountCreatedPage.java
+│               │   └── RegisterUserTest.java
+│               └── login/      # Funcionalidade de Login de Usuário
+│                   ├── LoginPage.java
+│                   └── LoginTest.java
+├── pom.xml
+└── README.md
+```
 ### Detalhes da Organização:
 
 * **Separação por Camadas:**
