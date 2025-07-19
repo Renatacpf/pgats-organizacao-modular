@@ -4,15 +4,32 @@ Este projeto tem como objetivo demonstrar a automação de testes de interfaces 
 
 ## 🚀 Funcionalidades Automatizadas
 
-O projeto atualmente abrange a automação das seguintes funcionalidades em uma aplicação web de demonstração:
+O projeto atualmente abrange a automação das seguintes funcionalidades na aplicação web de demonstração [Automation Exercise](https://www.automationexercise.com/):
 
-1.  **Cadastro de Usuário:**
-    * Preenchimento de formulário de registro com dados válidos.
-    * Validação do sucesso do cadastro.
+1.  **Registro de Usuário (Test Case 1: Register User):**
+    * Navegação para a Home Page.
+    * Verificação da visibilidade da Home Page.
+    * Clique no botão 'Signup / Login'.
+    * Verificação da visibilidade de 'New User Signup!'.
+    * Preenchimento de nome e e-mail para registro inicial.
+    * Clique no botão 'Signup'.
+    * Verificação da visibilidade de 'ENTER ACCOUNT INFORMATION'.
+    * Preenchimento de detalhes da conta (Título, Senha, Data de Nascimento).
+    * Seleção de checkboxes de newsletter e ofertas.
+    * Preenchimento de detalhes de endereço (Nome, Sobrenome, Empresa, Endereços, País, Estado, Cidade, CEP, Número de Celular).
+    * Clique no botão 'Create Account'.
+    * Verificação da visibilidade de 'ACCOUNT CREATED!'.
+    * Clique no botão 'Continue'.
+    * Verificação de que 'Logged in as username' está visível.
+    * Clique no botão 'Delete Account'.
+    * Verificação da visibilidade de 'ACCOUNT DELETED!' e clique em 'Continue'.
 2.  **Login de Usuário:**
-    * Preenchimento de credenciais (usuário e senha).
+    * Navegação para a Home Page.
+    * Verificação da visibilidade da Home Page.
+    * Clique no botão 'Signup / Login'.
+    * Preenchimento de credenciais (e-mail e senha) na seção de login.
     * Realização do login.
-    * Validação do login bem-sucedido (verificação da página pós-login).
+    * Verificação do login bem-sucedido ('Logged in as username' visível).
 
 ## 💡 Estrutura do Projeto e Boas Práticas
 
@@ -34,10 +51,14 @@ O projeto foi cuidadosamente estruturado para promover a modularidade, reusabili
     │           ├── base/           # Classes base para os testes
     │           │   └── BaseTest.java
     │           └── tests/          # Testes e Page Objects agrupados por funcionalidade
-    │               ├── cadastro/
-    │               │   ├── CadastroPage.java
-    │               │   └── CadastroTest.java
-    │               └── login/
+    │               ├── register/   # Funcionalidade de Registro de Usuário
+    │               │   ├── HomePage.java
+    │               │   ├── SignupLoginPage.java
+    │               │   ├── AccountInformationPage.java
+    │               │   ├── AccountDetailsPage.java
+    │               │   ├── AccountCreatedPage.java
+    │               │   └── RegisterUserTest.java
+    │               └── login/      # Funcionalidade de Login de Usuário
     │                   ├── LoginPage.java
     │                   └── LoginTest.java
     ├── pom.xml
@@ -45,14 +66,14 @@ O projeto foi cuidadosamente estruturado para promover a modularidade, reusabili
     ```
 
 * **Separação por Camadas (Refletindo a Estrutura):**
-    * `tests/cadastro/` e `tests/login/`: Contêm tanto as classes de teste (`CadastroTest`, `LoginTest`) quanto as suas respectivas Page Objects (`CadastroPage`, `LoginPage`). Esta organização agrupa tudo que é específico de uma funcionalidade em um único local, facilitando a navegação e manutenção.
+    * `tests/register/` e `tests/login/`: Contêm tanto as classes de teste (`RegisterUserTest`, `LoginTest`) quanto as suas respectivas Page Objects (`HomePage`, `SignupLoginPage`, `AccountInformationPage`, `AccountDetailsPage`, `AccountCreatedPage`, `LoginPage`). Esta organização agrupa tudo que é específico de uma funcionalidade em um único local, facilitando a navegação e manutenção.
     * `config/`: Armazena configurações globais (`Config.java`) e o gerenciador do WebDriver (`DriverManager.java`).
     * `utils/`: Inclui utilitários como `DataFactory` para geração de dados de teste.
     * `base/`: Contém a classe `BaseTest`, que é a base para todos os testes, cuidando da inicialização e finalização do WebDriver.
 
 * **Design Patterns Aplicados:**
-    * **Page Object Model (POM):** Implementado nas classes `LoginPage` e `CadastroPage`, garantindo que a lógica de interação com a UI esteja separada da lógica de teste.
-    * **Singleton (implícito no DriverManager):** O `DriverManager` gerencia a instância do WebDriver, garantindo uma única instância do driver por thread de execução, promovendo reuso.
+    * **Page Object Model (POM):** Implementado nas diversas Page Objects, garantindo que a lógica de interação com a UI esteja separada da lógica de teste.
+    * **Singleton (implícito no DriverManager):** O `DriverManager` gerencia a instância do WebDriver.
     * **Factory (em DataFactory):** A classe `DataFactory` atua como uma fábrica para gerar dados de teste dinamicamente.
 
 * **Convenções e Padronizações:**
@@ -70,9 +91,9 @@ O projeto foi cuidadosamente estruturado para promover a modularidade, reusabili
 
 ## 🌐 Aplicação de Teste
 
-Este projeto utiliza o **Parabank** como aplicação web de demonstração:
+Este projeto utiliza o **Automation Exercise** como aplicação web de demonstração:
 
-* **URL Base:** `https://parabank.parasoft.com/parabank/index.htm`
+* **URL Base:** `https://www.automationexercise.com/`
 
 ## ⚙️ Pré-requisitos
 
@@ -97,15 +118,15 @@ Antes de executar os testes, certifique-se de ter o seguinte instalado:
     * O IntelliJ deve reconhecer o `pom.xml` e importar o projeto Maven automaticamente. Se não, clique com o botão direito no `pom.xml` e selecione `Maven` -> `Reload Project`.
 
 3.  **Executar os Testes:**
-    * **Via IDE:** Navegue até as classes `LoginTest.java` ou `CadastroTest.java` (em `src/test/java/tests/login/` e `src/test/java/tests/cadastro/`). Clique com o botão direito na classe e selecione `Run 'NomeDoTeste'`.
+    * **Via IDE:** Navegue até as classes `RegisterUserTest.java` ou `LoginTest.java` (em `src/test/java/tests/register/` e `src/test/java/tests/login/`). Clique com o botão direito na classe e selecione `Run 'NomeDoTeste'`.
     * **Via Maven (Terminal):**
         * Para executar todos os testes:
             ```bash
             mvn clean test
             ```
-        * Para executar um teste específico (ex: `CadastroTest`):
+        * Para executar um teste específico (ex: `RegisterUserTest`):
             ```bash
-            mvn test -Dtest=CadastroTest
+            mvn test -Dtest=RegisterUserTest
             ```
 
 ## 🤝 Contribuições

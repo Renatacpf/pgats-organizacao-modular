@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class LoginPage {
@@ -16,19 +15,35 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    private By campoUsuario = By.name("username");
-    private By campoSenha = By.name("password");
-    private By botaoLogin = By.xpath("//input[@value='Log In']");
+    private By loginToYourAccountText = By.cssSelector(".login-form h2");
+    private By loginEmailField = By.cssSelector("input[data-qa='login-email']");
+    private By loginPasswordField = By.cssSelector("input[data-qa='login-password']");
+    private By loginButton = By.cssSelector("button[data-qa='login-button']");
 
-    public void preencherUsuario(String usuario) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(campoUsuario)).sendKeys(usuario);
+    private By invalidLoginMessage = By.cssSelector(".login-form p[style='color: red;']");
+
+    public boolean isLoginPageVisible() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginToYourAccountText)).isDisplayed();
     }
 
-    public void preencherSenha(String senha) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(campoSenha)).sendKeys(senha);
+    public void enterLoginDetails(String email, String password) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loginEmailField)).sendKeys(email);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loginPasswordField)).sendKeys(password);
     }
 
-    public void clicarNoBotaoLogin() {
-        wait.until(ExpectedConditions.elementToBeClickable(botaoLogin)).click();
+    public void clickLoginButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+    }
+
+    public boolean isInvalidLoginMessageVisible() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(invalidLoginMessage)).isDisplayed();
+        } catch (org.openqa.selenium.TimeoutException e) {
+            return false;
+        }
+    }
+
+    public String getInvalidLoginMessageText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(invalidLoginMessage)).getText();
     }
 }

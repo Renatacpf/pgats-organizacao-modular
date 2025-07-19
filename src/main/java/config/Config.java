@@ -1,7 +1,7 @@
 package config;
 
 public class Config {
-    public static final String BASE_URL = "https://parabank.parasoft.com/parabank/index.htm";
+    public static final String BASE_URL = "https://www.automationexercise.com/";
     public static final String BROWSER = "chrome";
 
     public static void setup() {

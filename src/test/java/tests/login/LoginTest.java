@@ -1,38 +1,59 @@
 package tests.login;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import base.BaseTest;
 import org.junit.jupiter.api.Assertions;
-import tests.BaseTest;
-import config.Config;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import tests.register.HomePage;
+import tests.register.AccountCreatedPage;
 
 public class LoginTest extends BaseTest {
-    private LoginPage loginPage;
-    private WebDriverWait wait;
 
-    @BeforeEach
-    public void setupLoginTest() {
-        driver.get(Config.BASE_URL);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        loginPage = new LoginPage(driver);
+    @Test
+    @DisplayName("Deve falhar o login com credenciais inválidas")
+    public void deveFalharLoginComCredenciaisInvalidas() {
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+
+        homePage.navigateToHomePage();
+        acceptCookiesIfPresent();
+        Assertions.assertTrue(homePage.isHomePageVisible(), "Home page should be visible.");
+
+        homePage.clickSignupLogin();
+        Assertions.assertTrue(loginPage.isLoginPageVisible(), "Login page should be visible.");
+
+        loginPage.enterLoginDetails("usuario.naoexiste@invalido.com", "senhaerrada123");
+        loginPage.clickLoginButton();
+
+        Assertions.assertTrue(loginPage.isInvalidLoginMessageVisible(), "Mensagem de erro de login inválido deve estar visível.");
+        Assertions.assertEquals("Your email or password is incorrect!", loginPage.getInvalidLoginMessageText(), "Texto da mensagem de erro está incorreto.");
+
+        Assertions.assertTrue(loginPage.isLoginPageVisible(), "Deve permanecer na página de Login após login inválido.");
     }
 
     @Test
+    @DisplayName("Deve realizar login com sucesso de um usuário existente")
     public void deveRealizarLoginComSucesso() {
-        loginPage.preencherUsuario("john");
-        loginPage.preencherSenha("demo");
-        loginPage.clicarNoBotaoLogin();
+        String existingUserEmail = "test_4d00b840@example.com";
+        String existingUserPassword = "Password5877";
+        String expectedLoggedInUserName = "User_8f2896ca";
 
-        wait.until(ExpectedConditions.urlContains("overview.htm"));
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver);
 
-        Assertions.assertTrue(driver.findElement(By.cssSelector("h1.title")).getText().contains("Accounts Overview"),
-                "O título da página após o login não é 'Accounts Overview'.");
-        Assertions.assertTrue(driver.findElement(By.id("leftPanel")).isDisplayed(),
-                "O painel de navegação esquerdo não está visível após o login.");
+        homePage.navigateToHomePage();
+        acceptCookiesIfPresent();
+        Assertions.assertTrue(homePage.isHomePageVisible(), "Home page should be visible.");
+
+        homePage.clickSignupLogin();
+        Assertions.assertTrue(loginPage.isLoginPageVisible(), "Login page should be visible.");
+
+        loginPage.enterLoginDetails(existingUserEmail, existingUserPassword);
+        loginPage.clickLoginButton();
+
+        String actualLoggedInText = homePage.getLoggedInUsername();
+        Assertions.assertTrue(actualLoggedInText.contains(expectedLoggedInUserName),
+                "O usuário '" + expectedLoggedInUserName + "' não está logado. Texto encontrado: " + actualLoggedInText);
     }
 }
